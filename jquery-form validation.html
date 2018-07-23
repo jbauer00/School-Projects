@@ -1,0 +1,244 @@
+<html>
+
+    <head>
+    
+        <title>JQuery-form validation</title>
+        <!-- Use this google api link for jquery for production sites
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        -->
+    
+        <script type="text/javascript" src="jquery.min.js"></script>
+        
+    <style>
+        
+            body {
+
+                font-family: helvetica, sans-serif;
+                font-size: 140%;
+
+            }
+
+            input {
+
+                padding: 5px 5px 12px 5px;
+                font-size: 25px;
+                border-radius: 5px;
+                border: 1px solid gray;
+                width: 320px;
+            }
+
+            label {
+
+                position: relative;
+                top: 12px;
+                width: 200px;
+                float: left;
+            }
+        
+        #wrapper {
+            
+            width: 550px;
+            margin: 0 auto;
+            
+            }
+        
+        .form-element {
+            
+            margin-bottom: 10px;
+            
+            }
+        
+        #submitButton {
+            
+            width: 130px;
+            margin-left: 200px;
+            
+            }
+        
+        #errorMessage {
+            
+            color: red;
+            font-size: 80% !important;
+            
+        }
+        
+        #successMessage {
+            
+            color: green;
+            font-size: 80% !important;
+            display: none;
+            
+        }
+        
+    </style>
+        
+       
+        
+    </head>
+
+    <body>
+    
+        <div id="wrapper">
+            
+            <div id="successMessage">Congratulations Complete!</div>
+            
+            <div id="errorMessage"></div>
+            
+            <div class="form-element">
+            
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" placeholder = "eg. yourname@gmail.com">
+                
+                </div>
+            
+            <div class="form-element">
+            
+            <label for="phone">Telephone</label>
+            <input type="text" name="phone" id="phone" placeholder = "eg. (555)555-5555">
+                
+                </div>
+            
+            <div class="form-element">
+            
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password">
+                
+                </div>
+            
+            <div class="form-element">
+            
+            <label for="passwordConfirm">Confirm Password</label>
+            <input type="password" name="passwordConfirm" id="passwordConfirm">
+                
+                </div>
+            
+            <div class="form-element">
+            
+                <input type="submit" id="submitButton" value="Sign Up">
+                
+                </div>
+        
+        </div>
+        
+        <script>
+            
+            function isEmail(email) {
+                
+            var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                
+            return regex.test(email);
+                
+            }
+        
+            $("#submitButton").click(function() {
+                
+                var errorMessage = "";
+                
+                var fieldsMissing = "";
+                
+                if ($("#email").val() == "") {
+                    
+                    fieldsMissing += "<br>Email";
+                }
+                
+                if ($("#phone").val() == "") {
+                    
+                    fieldsMissing += "<br>Phone";
+                }
+                
+                if ($("#password").val() == "") {
+                    
+                    fieldsMissing += "<br>Password";
+                }
+                
+                if ($("passwordConfirm").val() == "") {
+                    
+                    fieldsMissing += "<br>Confirm Password";
+                }
+                
+                if (fieldsMissing != "") {
+                    
+                    errorMessage += "The following field(s) are missing" + fieldsMissing;
+                }
+                
+                
+                if (isEmail($("#email").val()) == false) {
+                    
+                    errorMessage += "<p>Your email address is not valid.</p>";
+                }
+                
+                if ($.isNumeric($("#phone").val()) == false) {
+                    
+                    errorMessage += "Your phone number is not valid."
+                }
+                
+                if ($("#password").val() != $("#passwordConfirm").val()) {
+                    
+                    errorMessage += "Your passwords don't match"
+                }
+                
+                if (errorMessage != "") {
+                    
+                    $("#errorMessage").html(errorMessage);
+                    
+                } else {
+                    
+                    $("#successMessage").show();
+                    $("#errorMessage").hide();
+                }
+               
+            });
+            
+        </script>
+        
+        
+        
+        
+        
+        <!-- Great way cleaner. Above is detailed way if you cant used css properties, css("display").
+        <script>
+            
+            $("#toggle").click(function() {
+                
+                if ($("#text").css("display") == "none") {
+                    
+                    $("#text").fadeIn();
+                    
+                } else {
+                
+                $("#text").fadeOut();
+            
+                }
+            });
+        
+        
+        
+        </script>
+        
+        
+        <!--
+        <div id="circle"></div>
+        
+        <div class="square"></div>
+        
+        <div class="square"></div>
+        
+        <script>
+            
+        $("div").click(function() {
+            
+            $(this).fadeOut(function() {
+                
+                alert("FadeOut has finsished!");
+            });
+        
+        });
+        
+        </script>
+        
+        <!--
+        alert($("body").css("width")) This is great for sizing a width for your page to work on differnet monitors or screen sizes and for content layout and fit!!-->
+    
+    </body>
+
+</html>
